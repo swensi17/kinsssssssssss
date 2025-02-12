@@ -4,8 +4,9 @@ import requests
 import random
 
 app = Flask(__name__,
-    static_folder='static',
-    template_folder='templates'
+    static_url_path='',
+    static_folder='.',
+    template_folder='.'
 )
 
 API_KEY = "f07fe1ef73590e66585c2260c45f60b"
