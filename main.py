@@ -1,13 +1,24 @@
 from datetime import datetime, timedelta
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import Flask, render_template, request, jsonify, redirect, url_for, send_from_directory
 import requests
 import random
+import os
 
 app = Flask(__name__,
-    static_url_path='',
+    static_url_path='/static',
     static_folder='.',
     template_folder='.'
 )
+
+# Add static file handling
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('.', filename)
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 API_KEY = "f07fe1ef73590e66585c2260c45f60b"
 BASE_URL = "https://api.themoviedb.org/3"
